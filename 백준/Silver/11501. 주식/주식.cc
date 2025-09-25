@@ -7,6 +7,8 @@ long long arr[1000000];
 
 int main()
 {
+	ios::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
 	int t;
 	cin >> t;
 	for (int tc = 1; tc <= t; tc++) {
