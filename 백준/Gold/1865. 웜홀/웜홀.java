@@ -50,12 +50,15 @@ public class Main {
             }
 
             for(int i = 0;i<N-1;i++){
+                boolean update = false;
                 for(int j = 0;j< idx;j++){
                     Edge edge = graph[j];
                     if(dist[edge.w]>dist[edge.v]+edge.t){
+                        update = true;
                         dist[edge.w] = dist[edge.v] + edge.t;
                     }
                 }
+                if(!update) break;
             }
             boolean yes = false;
             for (int i = 0; i < idx; i++) {
