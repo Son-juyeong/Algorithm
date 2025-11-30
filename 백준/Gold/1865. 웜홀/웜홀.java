@@ -26,7 +26,8 @@ public class Main {
             int M = Integer.parseInt(st.nextToken());
             int W = Integer.parseInt(st.nextToken());
 
-            List<Edge> graph = new ArrayList<>();
+            Edge[] graph = new Edge[2 * M + W];
+            int idx = 0;
             int[] dist = new int[N + 1];
             Arrays.fill(dist, INF);
             for(int i  = 0;i<M;i++){
@@ -35,8 +36,8 @@ public class Main {
                 int e = Integer.parseInt(st.nextToken());
                 int t = Integer.parseInt(st.nextToken());
 
-                graph.add(new Edge(s, e, t));
-                graph.add(new Edge(e, s, t));
+                graph[idx++] = (new Edge(s, e, t));
+                graph[idx++] = (new Edge(e, s, t));
             }
 
             for(int i = 0;i<W;i++){
@@ -45,20 +46,20 @@ public class Main {
                 int e = Integer.parseInt(st.nextToken());
                 int t = Integer.parseInt(st.nextToken());
 
-                graph.add(new Edge(s, e, -t));
+                graph[idx++]=(new Edge(s, e, -t));
             }
 
             for(int i = 0;i<N-1;i++){
-                for(int j = 0;j< graph.size();j++){
-                    Edge edge = graph.get(j);
+                for(int j = 0;j< idx;j++){
+                    Edge edge = graph[j];
                     if(dist[edge.w]>dist[edge.v]+edge.t){
                         dist[edge.w] = dist[edge.v] + edge.t;
                     }
                 }
             }
             boolean yes = false;
-            for (int i = 0; i < graph.size(); i++) {
-                Edge edge = graph.get(i);
+            for (int i = 0; i < idx; i++) {
+                Edge edge = graph[i];
                 if(dist[edge.w]>dist[edge.v]+edge.t){
                     yes = true;
                     break;
