@@ -29,7 +29,7 @@ public class Main {
             Edge[] graph = new Edge[2 * M + W];
             int idx = 0;
             int[] dist = new int[N + 1];
-            Arrays.fill(dist, INF);
+            Arrays.fill(dist, 0);
             for(int i  = 0;i<M;i++){
                 st = new StringTokenizer(br.readLine());
                 int s = Integer.parseInt(st.nextToken());
