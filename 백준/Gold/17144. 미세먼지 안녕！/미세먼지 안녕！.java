@@ -4,6 +4,7 @@ import java.util.*;
 class Main {
 
     static int[][] arr;
+    static int[][] diff;
     static int[] dr = {0, 1, 0, -1};
     static int[] dc = {1, 0, -1, 0};
 
@@ -31,10 +32,7 @@ class Main {
         }
 
         for (int time = 0; time < t; time++) {
-            int[][] temp = new int[r][c];
-            for (int i = 0; i < r; i++) {
-                temp[i] = Arrays.copyOf(arr[i], c);
-            }
+            diff = new int[r][c];
             for (int i = 0; i < r; i++) {
                 for (int j = 0; j < c; j++) {
                     if (arr[i][j] > 0) {
@@ -43,52 +41,58 @@ class Main {
                             int row = i + dr[k];
                             int col = j + dc[k];
                             if (row >= 0 && row < r && col >= 0 && col < c && arr[row][col] != -1) {
-                                temp[row][col] += dust;
-                                temp[i][j] -= dust;
+                                diff[row][col] += dust;
+                                diff[i][j] -= dust;
                             }
                         }
                     }
                 }
             }
+
+            for (int i = 0; i < r; i++) {
+                for (int j = 0; j < c; j++) {
+                    arr[i][j] += diff[i][j];
+                }
+            }
+
             int tr = u - 1, tc = 0;
             while (tr > 0) {
-                temp[tr][tc] = temp[tr - 1][tc];
+                arr[tr][tc] = arr[tr - 1][tc];
                 --tr;
             }
             while (tc < c - 1) {
-                temp[tr][tc] = temp[tr][tc + 1];
+                arr[tr][tc] = arr[tr][tc + 1];
                 ++tc;
             }
             while (tr < u) {
-                temp[tr][tc] = temp[tr + 1][tc];
+                arr[tr][tc] = arr[tr + 1][tc];
                 ++tr;
             }
             while (tc > 0) {
-                temp[tr][tc] = Math.max(0, temp[tr][tc - 1]);
+                arr[tr][tc] = Math.max(0, arr[tr][tc - 1]);
                 --tc;
             }
             tr = d + 1;
             while (tr < r - 1) {
-                temp[tr][tc] = temp[tr + 1][tc];
+                arr[tr][tc] = arr[tr + 1][tc];
                 ++tr;
             }
 
             while (tc < c - 1) {
-                temp[tr][tc] = temp[tr][tc + 1];
+                arr[tr][tc] = arr[tr][tc + 1];
                 ++tc;
             }
 
             while (tr > d) {
-                temp[tr][tc] = temp[tr - 1][tc];
+                arr[tr][tc] = arr[tr - 1][tc];
                 --tr;
             }
 
             while (tc > 0) {
-                temp[tr][tc] = Math.max(0, temp[tr][tc - 1]);
+                arr[tr][tc] = Math.max(0, arr[tr][tc - 1]);
                 --tc;
             }
 
-            arr = temp;
         }
 
         int answer = 2;
